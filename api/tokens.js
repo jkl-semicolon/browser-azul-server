@@ -13,7 +13,7 @@ const createToken = (body) => {
   const token = `${serverGames[room].players.length}${name}${room}`;
   serverGames[room].tokens.push(token);
   serverGames[room].start.push(false);
-  console.log(serverGames);
+  console.log('SERVER GAMES IN CREATE TOKEN', serverGames);
   return serverGames[room].tokens[serverGames[room].players.length-1];
 }
 

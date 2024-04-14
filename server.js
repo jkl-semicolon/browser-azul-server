@@ -12,10 +12,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.post('/testToken', async(req, res) => {
+app.post('/testToken', async (req, res) => {
   try {
-    const {room} = req.body
-    res.send(JSON.stringify(serverGames[room]));
+    const {room} = await req.body
+    // log('ROOM:', room)
+    // log('TYPEOF ROOM', typeof room)
+    log('SERVER GAMES IN SERVER.JS,',serverGames);
+    const chosenRoom = serverGames[Number(room)];
+    log('CHOSEN ROOM:', chosenRoom);
+    res.send(JSON.stringify({chosenRoom}));
   } catch (err) {
     log(err);
   }
