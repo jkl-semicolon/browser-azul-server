@@ -1,4 +1,9 @@
 const mState = {};
-const ourPlayers = [];
+const serverGames = [];
+const ourPlayers = {
+  players: [],
+  tokens: [],
+  start: [],
+};
 
-export {mState, ourPlayers};
+export {mState, ourPlayers, serverGames};

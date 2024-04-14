@@ -1,13 +1,26 @@
-import { ourPlayers } from "./state.js";
+import { serverGames } from "./state.js";
 
 const createToken = (body) => {
-  const { name } = body;
-  console.log(name);
-  console.log(ourPlayers);
-  ourPlayers.forEach(player => {if (player === name) return 'failureee'})
-  ourPlayers.push(name);
-  console.log('OURPLAYERS', ourPlayers);
-  return `${ourPlayers.length}${name}`
+  const { name, room } = body;
+  if (!serverGames[room]) {
+    serverGames[room] = {
+      players: [],
+      tokens: [],
+      start: [],
+    };
+  };
+  serverGames[room].players.push(name);
+  const token = `${serverGames[room].players.length}${name}${room}`;
+  serverGames[room].tokens.push(token);
+  serverGames[room].start.push(false);
+  console.log(serverGames);
+  return serverGames[room].tokens[serverGames[room].players.length-1];
 }
+
+// const testToken = 
+
+// const setStart = (body) => {
+
+// }
 
 export {createToken};

@@ -2,3 +2,4 @@
 
   "dependencies":
     "express": "^4.19.2",
+    "cors": "^2.8.5",
