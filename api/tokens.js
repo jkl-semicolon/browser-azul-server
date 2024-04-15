@@ -17,10 +17,27 @@ const createToken = (body) => {
   return serverGames[room].tokens[serverGames[room].players.length-1];
 }
 
-// const testToken = 
+const setStart = (body) => {
+  try {
+    const { start, token, room } = body;
+    console.log('serverGames[room]', serverGames[room])
+    serverGames[room].start.pop();
+    serverGames[room].start.unshift(start);
+    let startGame = true;
+    serverGames[room].start.forEach(start => {
+      if (start === false) startGame = false;
+    });
+    if (startGame) {
+      console.log('game is starting!!!!');
+      startMGame();
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// const setStart = (body) => {
+const startMGame = () => {
 
-// }
+}
 
-export {createToken};
+export { createToken, setStart };
