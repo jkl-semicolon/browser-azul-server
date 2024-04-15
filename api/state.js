@@ -1,4 +1,4 @@
-const mState = {};
+const mState = [];
 const serverGames = [];
 const ourPlayers = {
   players: [],

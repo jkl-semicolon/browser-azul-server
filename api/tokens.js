@@ -1,4 +1,5 @@
-import { serverGames } from "./state.js";
+import { mState, serverGames } from "./state.js";
+import { resetState } from "./mGameSetup.js";
 
 const createToken = (body) => {
   const { name, room } = body;
@@ -20,24 +21,25 @@ const createToken = (body) => {
 const setStart = (body) => {
   try {
     const { start, token, room } = body;
-    console.log('serverGames[room]', serverGames[room])
     serverGames[room].start.pop();
     serverGames[room].start.unshift(start);
+    console.log('serverGames[room]', serverGames[room])
     let startGame = true;
     serverGames[room].start.forEach(start => {
       if (start === false) startGame = false;
     });
     if (startGame) {
       console.log('game is starting!!!!');
-      startMGame();
+      startMGame(room);
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-const startMGame = () => {
-
+const startMGame = (room) => {
+  const myRoom = mState[room];
+  resetState(myRoom); // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
 }
 
-export { createToken, setStart };
+export { createToken, setStart, };

@@ -3,8 +3,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { log } from 'console';
 
-import { createToken, setStart } from './api/tokens.js';
-import { serverGames } from './api/state.js';
+import { createToken, setStart, } from './api/tokens.js';
+import { mState, serverGames } from './api/state.js';
 
 const PORT = 8000;
 const app = express();
@@ -38,6 +38,16 @@ app.post('/setStart', async (req, res) => {
     res.end();
   } catch (err) {
     log('error starting game!', err);
+  }
+})
+app.get('/waitStart/:room', async (req, res) => {
+  try {
+    const { room } = req.params;
+    console.log('getting pinged')
+    if (!mState[room]) res.end();
+    else res.send(JSON.stringify(mState[room]));
+  } catch (err) {
+    log('error waiting for game start!, err');
   }
 })
 
