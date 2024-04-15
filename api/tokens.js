@@ -1,5 +1,6 @@
 import { mState, serverGames } from "./state.js";
-import { resetState } from "./mGameSetup.js";
+import { resetState, shuffle, initializePlayers, setFactoryTiles, fillBag } from "./mGameSetup.js";
+import { newRoundOrNawww } from "./mGameFlow.js";
 
 const createToken = (body) => {
   const { name, room } = body;
@@ -37,9 +38,21 @@ const setStart = (body) => {
   }
 }
 
-const startMGame = (room) => {
-  const myRoom = mState[room];
-  resetState(myRoom); // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
+const startMGame = (roomNum) => {
+  let competitors = [];
+  mState[roomNum] = {};
+  resetState(mState[roomNum]);
+  competitors = [...serverGames[roomNum].players];
+  mState[roomNum].gameStart = true;
+  shuffle(competitors);
+  initializePlayers(mState[roomNum], competitors.length, competitors);
+  setFactoryTiles(mState[roomNum]);
+  fillBag(mState[roomNum]);
+  newRoundOrNawww(mState[roomNum]);
+
+  console.log('MSTATE ROOM', mState[roomNum])
+  console.log('MSTATE', mState)
+  // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
 }
 
 export { createToken, setStart, };
