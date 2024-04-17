@@ -17,13 +17,9 @@ app.use(morgan('dev'));
 app.post('/testToken', async (req, res) => {
   try {
     const {room} = await req.body
-    log(typeof room)
-    log(serverGames);
     const chosenRoom = serverGames[room];
-    log(chosenRoom);
     res.send(JSON.stringify({chosenRoom}));
   } catch (err) {
-    log('helloooooo')
     log(err);
   }
 })
@@ -47,8 +43,7 @@ app.post('/setStart', async (req, res) => {
 app.get('/waitStart/:room', async (req, res) => {
   try {
     const { room } = req.params;
-    console.log('getting pinged')
-    if (!mState[Number(room)]) res.end();
+    if (!mState[Number(room)]) res.send(JSON.stringify('egg')); // don't change without changing client-side
     else res.send(JSON.stringify(mState[Number(room)]));
   } catch (err) {
     log('error waiting for game start!, err');

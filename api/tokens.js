@@ -15,7 +15,6 @@ const createToken = (body) => {
   const token = `${serverGames[room].players.length}${name}${room}`;
   serverGames[room].tokens.push(token);
   serverGames[room].start.push(false);
-  console.log('SERVER GAMES IN CREATE TOKEN', serverGames);
   return serverGames[room].tokens[serverGames[room].players.length-1];
 }
 
@@ -24,7 +23,6 @@ const setStart = (body) => {
     const { start, token, room } = body;
     serverGames[room].start.pop();
     serverGames[room].start.unshift(start);
-    console.log('serverGames[room]', serverGames[room])
     let startGame = true;
     serverGames[room].start.forEach(start => {
       if (start === false) startGame = false;
@@ -50,8 +48,6 @@ const startMGame = (roomNum) => {
   fillBag(mState[roomNum]);
   newRoundOrNawww(mState[roomNum]);
 
-  console.log('MSTATE ROOM', mState[roomNum])
-  console.log('MSTATE', mState)
   // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
 }
 
