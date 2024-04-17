@@ -5,6 +5,7 @@ import { log } from 'console';
 
 import { createToken, setStart, } from './api/tokens.js';
 import { mState, serverGames } from './api/state.js';
+import { changeTurnOrder } from './api/mGameFlow.js';
 
 const PORT = 8000;
 const app = express();
@@ -25,7 +26,7 @@ app.post('/testToken', async (req, res) => {
 })
 app.post('/getToken', async (req, res) => {
   try {
-    const token = createToken(req.body); 
+    const token = await createToken(req.body); 
     res.send(JSON.stringify(token));
   } catch (err) {
     log('error getting token to play!', err);
@@ -47,6 +48,15 @@ app.get('/waitStart/:room', async (req, res) => {
     else res.send(JSON.stringify(mState[Number(room)]));
   } catch (err) {
     log('error waiting for game start!, err');
+  }
+})
+app.post('/setStateAfterTurn/:room', async (req, res) => {
+  try {
+    const { room } = req.params;
+    changeTurnOrder(req.body.state, Number(room))
+    res.end();
+  } catch (err) {
+    log('error getting state after a turn!', err);
   }
 })
 

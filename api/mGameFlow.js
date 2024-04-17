@@ -85,5 +85,10 @@ const takeTurn = (state) => {
   // createInstructions(state.turnOrder[state.currentPlayer]);    ///////////////////////
 };
 
+const changeTurnOrder = (state, room) => {
+  takeTurn(state);
+  mState[room] = state;
+}
 
-export { newRoundOrNawww, startRound }
+
+export { newRoundOrNawww, startRound, changeTurnOrder }
