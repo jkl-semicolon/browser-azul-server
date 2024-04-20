@@ -15,6 +15,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
+app.post((req, _, next) => {
+  log('<-----------BODY INCOMING START -------------->');
+  log('<--------------------------------------------->');
+  log('<--------------------------------------------->');
+  log(req.body);
+  log('<--------------------------------------------->');
+  log('<--------------------------------------------->');
+  log('<------------BODY INCOMING END --------------->');
+  next();
+})
+
 app.post('/testToken', async (req, res) => {
   try {
     const {room} = await req.body

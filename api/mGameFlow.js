@@ -1,15 +1,19 @@
 import { mState, serverGames } from "./state.js";
 import { shuffle } from "./mGameSetup.js";
+import { endRoundScoring, endGameScoring } from "./mScoring.js";
+import { log } from 'console';
+
+let bandaid = {}; /////////////////////////////////////////////////////
 
 /**
  * Checks if the end game condition of a player finishing a row in their landing area.
  * If so, game proceeds to end game scoring. Otherwise, start another round.
  */
 const newRoundOrNawww = (state) => {
-  for (const player of state.players) {
+  for (const player of state.turnOrder) {
     for (const playerLandingRow of player.landing) {
       if (playerLandingRow.length === 5) {
-        endGameScoring();          //////////////////////////////////////
+        endGameScoring(state);          ////////////////////////////////////// may need to set mState equal to state for endgamescoring!!!! 
         return;
       }
     }
@@ -46,11 +50,11 @@ const placeFirstTile = (state) => state.middle[0].push('first');
  * player order according to the 1st player marker at the start of subsequent rounds.
  */
 const setPlayerOrder = (state) => {
-  state.turnOrder = shuffle([...state.players]);
+  shuffle(state.turnOrder); ///////////////////////////////////////////////////////////////////////
   for (let i=0; i<state.turnOrder.length; i++) {
     if (state.turnOrder[i].firstNext) {
       state.turnOrder.unshift(state.turnOrder.splice(i,1)[0]);
-      for (const player of state.players) player.firstNext = false;
+      for (const player of state.turnOrder) player.firstNext = false; //////////////////////////////////////////////////////////
     };
   };
 };
@@ -82,12 +86,31 @@ const takeTurn = (state) => {
   state.turnCounter++;
   // renderPlayers(); ////////////////////////////////////////////////////////////
   state.activeGrab = true;
+  // mState[room] = state;
   // createInstructions(state.turnOrder[state.currentPlayer]);    ///////////////////////
 };
 
+/**
+ * Occurs at the end of the second event handler of a player's turn. 
+ * Checks to see if another turn in the round is needed, and either a new
+ * turn occurs or end round scoring occurs.
+ */
+const newTurnOrNawww = (state) => {
+  let midHasTiles;
+  state.middle.forEach((part) => {
+    if (part.length) midHasTiles = true;
+  });
+  if (midHasTiles) takeTurn(state);
+  else endRoundScoring(state);
+};
+
 const changeTurnOrder = (state, room) => {
-  takeTurn(state);
-  mState[room] = state;
+  newTurnOrNawww(state)
+  // takeTurn(state);
+  mState[room] = state; ////////////////////////////////////////////////////////////////
+  // console.log('MSTATE ROOM CHANGINGGGGG', mState[room])
+  // console.log('SINGLE PLAYER STAGING', mState[room].players[1].staging)
+  // console.log('SINGLE (TURN) PLAYER STAGING', mState[room].turnOrder[1].staging)
 }
 
 

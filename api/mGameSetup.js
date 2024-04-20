@@ -37,6 +37,7 @@ const resetState = (room) => {
   ['numberPlayers', 'factoryTiles', 'currentPlayer', 'turnCounter',].forEach(s => room[s] = 0);
   ['turnOrder', 'bag', 'discard', 'players',].forEach(s => room[s] = []);
   room.middle = [[],];
+  room.winner = '';
 };
 
 const playerColors = ['#F7D9C4', '#C9E4DE', '#C6DEF1', '#F2C6DE'];
@@ -58,6 +59,7 @@ const initializePlayers = (state, numberPlayers, competitors) => {
       broken: [],
       firstNext: false,
     });
+    state.turnOrder = state.players; //////////////////////////////////////////////////////////
   };
 };
 
