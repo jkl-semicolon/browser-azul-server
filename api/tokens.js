@@ -9,6 +9,7 @@ const createToken = (body) => {
       players: [],
       tokens: [],
       start: [],
+      messages: []
     };
   };
   serverGames[room].players.push(name);
@@ -51,4 +52,11 @@ const startMGame = (roomNum) => {
   // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
 }
 
-export { createToken, setStart, };
+const appendMessage = (message, room) => {
+  serverGames[room].messages.push(message);
+  if (serverGames[room].messages.length > 12) {
+    serverGames[room].messages.shift();
+  }
+}
+
+export { createToken, setStart, appendMessage};

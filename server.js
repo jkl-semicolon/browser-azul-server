@@ -3,7 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { log } from 'console';
 
-import { createToken, setStart, } from './api/tokens.js';
+import { createToken, setStart, appendMessage} from './api/tokens.js';
 import { mState, serverGames } from './api/state.js';
 import { changeTurnOrder } from './api/mGameFlow.js';
 
@@ -68,6 +68,14 @@ app.post('/setStateAfterTurn/:room', async (req, res) => {
     res.end();
   } catch (err) {
     log('error getting state after a turn!', err);
+  }
+})
+app.post('/sendMessage/:room', async (req, res) => {
+  try {
+    const { room } = req.params;
+    appendMessage(req.body.input, Number(room))
+  } catch (err) {
+    log('error getting chat message!', err);
   }
 })
 
