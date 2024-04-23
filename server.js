@@ -78,5 +78,12 @@ app.post('/sendMessage/:room', async (req, res) => {
     log('error getting chat message!', err);
   }
 })
+app.get('/testServer', async (req, res) => {
+  try {
+    res.send({hello:'hello'});
+  } catch (err) {
+    log('error initializing contact with server!', err);
+  }
+})
 
 app.listen(PORT, () => log('Listening on port ' + PORT + '.'));

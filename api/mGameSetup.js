@@ -81,3 +81,8 @@ const fillBag = (state) => {
 };
 
 export { resetState, shuffle, initializePlayers, setFactoryTiles, fillBag};
+
+
+
+
+
