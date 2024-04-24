@@ -4,6 +4,7 @@ import { newRoundOrNawww } from "./mGameFlow.js";
 
 const createToken = (body) => {
   const { name, room } = body;
+  console.log('PLAYER:', name, 'IN ROOM', room);
   if (!serverGames[room]) {
     serverGames[room] = {
       players: [],
