@@ -26,6 +26,14 @@ app.use(morgan('dev'));
 //   next();
 // })
 
+app.get('/', async (req, res) => {
+  try {
+    res.send('Hello there! 😄')
+  } catch(err) {
+    log(err);
+  }
+})
+
 app.post('/testToken', async (req, res) => {
   try {
     const {room} = await req.body
