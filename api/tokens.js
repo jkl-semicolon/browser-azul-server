@@ -31,6 +31,10 @@ const setStart = (body) => {
     });
     if (startGame) {
       console.log('game is starting!!!!');
+      serverGames[room].start.pop();
+      serverGames[room].start.unshift(false); ////////////// bandaid for a bug
+      serverGames[room].start.pop();
+      serverGames[room].start.unshift(false);
       startMGame(room);
     }
   } catch (err) {
