@@ -26,6 +26,8 @@ app.use(morgan('dev'));
 //   next();
 // })
 
+const activatedRooms = [];
+
 app.get('/', async (req, res) => {
   try {
     res.send('Hello there! 😄')
@@ -63,8 +65,12 @@ app.post('/setStart', async (req, res) => {
 app.get('/waitStart/:room', async (req, res) => {
   try {
     const { room } = req.params;
+    if (activatedRooms.indexOf(Number(room)) !== -1) res.send(JSON.stringify('egg')); // don't change without changing client-side
     if (!mState[Number(room)]) res.send(JSON.stringify('egg')); // don't change without changing client-side
-    else res.send(JSON.stringify(mState[Number(room)]));
+    else {
+      setTimeout(() => {activatedRooms.push(Number(room))}, 3000); /// bandaids everywhere
+      res.send(JSON.stringify(mState[Number(room)]));
+    }
   } catch (err) {
     log('error waiting for game start!, err');
   }
