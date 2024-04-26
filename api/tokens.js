@@ -35,7 +35,6 @@ const setStart = (body) => {
       serverGames[room].start.unshift(false); ////////////// bandaid for a bug
       serverGames[room].start.pop();
       serverGames[room].start.unshift(false);
-      // console.log('SERVERGAMES ROOM START UPON FIRST GAME START', serverGames[room].start)
       startMGame(room);
     }
   } catch (err) {
@@ -54,8 +53,6 @@ const startMGame = (roomNum) => {
   setFactoryTiles(mState[roomNum]);
   fillBag(mState[roomNum]);
   newRoundOrNawww(mState[roomNum]);
-
-  // TODO PUSH PLAYERS IN, MAKE SURE PLAYER ORDER IS GOOD, FIND OUT HOW TO START THE GAME.
 }
 
 const appendMessage = (message, room) => {
@@ -65,4 +62,4 @@ const appendMessage = (message, room) => {
   }
 }
 
-export { createToken, setStart, appendMessage};
+export {createToken, setStart, appendMessage}

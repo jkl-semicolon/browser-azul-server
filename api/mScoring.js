@@ -1,5 +1,4 @@
 import { newRoundOrNawww } from "./mGameFlow.js";
-import { log } from 'console';
 
 /**
  * Local variable used for createStaging.
@@ -17,10 +16,7 @@ const landingPattern = [
  * for each player for the next round.
  */
 const endRoundScoring = (state) => {
-  // console.log('end round scoring is occuring!!!!!!!!!!!!!!!!!!!!!!!!')
-  // console.log('STATE IN END ROUND SCORING!!!!,', state)
-  // console.log('STATE PLAYERS IN END ROUND SCORING!!!!,', state.players)
-  state.turnOrder.forEach((player) => { /////////////////////////////////////////////////////////////////
+  state.turnOrder.forEach((player) => {
     player.staging.forEach((row, i) => {
 
       if (row.length === i + 1) {
@@ -99,7 +95,6 @@ const endGameScoring = (state) => {
     }
     player.score = player.score + rowBonus + columnBonus + colorBonus;
   });
-  // renderPlayers();
   gameEnd(state);
 };
 

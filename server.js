@@ -13,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(morgan('dev'));
 
+// app.use(morgan('dev'));
 // app.post((req, _, next) => {
 //   log('<-----------BODY INCOMING START -------------->');
 //   log('<--------------------------------------------->');
@@ -45,6 +45,7 @@ app.post('/testToken', async (req, res) => {
     log(err);
   }
 })
+
 app.post('/getToken', async (req, res) => {
   try {
     const token = await createToken(req.body); 
@@ -62,6 +63,7 @@ app.post('/setStart', async (req, res) => {
     log('error starting game!', err);
   }
 })
+
 app.get('/waitStart/:room', async (req, res) => {
   try {
     const { room } = req.params;
@@ -75,6 +77,7 @@ app.get('/waitStart/:room', async (req, res) => {
     log('error waiting for game start!, err');
   }
 })
+
 app.post('/setStateAfterTurn/:room', async (req, res) => {
   try {
     const { room } = req.params;
@@ -84,6 +87,7 @@ app.post('/setStateAfterTurn/:room', async (req, res) => {
     log('error getting state after a turn!', err);
   }
 })
+
 app.post('/sendMessage/:room', async (req, res) => {
   try {
     const { room } = req.params;
@@ -92,6 +96,7 @@ app.post('/sendMessage/:room', async (req, res) => {
     log('error getting chat message!', err);
   }
 })
+
 app.get('/testServer', async (req, res) => {
   try {
     res.send({hello:'hello'});

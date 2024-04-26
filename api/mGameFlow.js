@@ -1,9 +1,6 @@
-import { mState, serverGames } from "./state.js";
+import { mState } from "./state.js";
 import { shuffle } from "./mGameSetup.js";
 import { endRoundScoring, endGameScoring } from "./mScoring.js";
-import { log } from 'console';
-
-let bandaid = {}; /////////////////////////////////////////////////////
 
 /**
  * Checks if the end game condition of a player finishing a row in their landing area.
@@ -13,7 +10,7 @@ const newRoundOrNawww = (state) => {
   for (const player of state.turnOrder) {
     for (const playerLandingRow of player.landing) {
       if (playerLandingRow.length === 5) {
-        endGameScoring(state);          ////////////////////////////////////// may need to set mState equal to state for endgamescoring!!!! 
+        endGameScoring(state);
         return;
       }
     }
@@ -50,11 +47,11 @@ const placeFirstTile = (state) => state.middle[0].push('first');
  * player order according to the 1st player marker at the start of subsequent rounds.
  */
 const setPlayerOrder = (state) => {
-  shuffle(state.turnOrder); ///////////////////////////////////////////////////////////////////////
+  shuffle(state.turnOrder);
   for (let i=0; i<state.turnOrder.length; i++) {
     if (state.turnOrder[i].firstNext) {
       state.turnOrder.unshift(state.turnOrder.splice(i,1)[0]);
-      for (const player of state.turnOrder) player.firstNext = false; //////////////////////////////////////////////////////////
+      for (const player of state.turnOrder) player.firstNext = false;
     };
   };
 };
@@ -68,7 +65,6 @@ const setPlayerOrder = (state) => {
 const startRound = (state) => {
   popFacTiles(state);
   placeFirstTile(state);
-  // renderMainArea(); ///////////////////
   setPlayerOrder(state);
   state.turnCounter = 0;
   takeTurn(state);
@@ -81,13 +77,9 @@ const startRound = (state) => {
  * listener for the active player.
  */
 const takeTurn = (state) => {
-
   state.currentPlayer = state.turnCounter % state.turnOrder.length
   state.turnCounter++;
-  // renderPlayers(); ////////////////////////////////////////////////////////////
   state.activeGrab = true;
-  // mState[room] = state;
-  // createInstructions(state.turnOrder[state.currentPlayer]);    ///////////////////////
 };
 
 /**
@@ -106,11 +98,7 @@ const newTurnOrNawww = (state) => {
 
 const changeTurnOrder = (state, room) => {
   newTurnOrNawww(state)
-  // takeTurn(state);
-  mState[room] = state; ////////////////////////////////////////////////////////////////
-  // console.log('MSTATE ROOM CHANGINGGGGG', mState[room])
-  // console.log('SINGLE PLAYER STAGING', mState[room].players[1].staging)
-  // console.log('SINGLE (TURN) PLAYER STAGING', mState[room].turnOrder[1].staging)
+  mState[room] = state;
 }
 
 

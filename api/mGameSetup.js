@@ -1,5 +1,3 @@
-import { mState, serverGames } from "./state.js";
-
 /**
  * Local variable used for createStaging.
  */
@@ -59,7 +57,7 @@ const initializePlayers = (state, numberPlayers, competitors) => {
       broken: [],
       firstNext: false,
     });
-    state.turnOrder = state.players; //////////////////////////////////////////////////////////
+    state.turnOrder = state.players;
   };
 };
 
