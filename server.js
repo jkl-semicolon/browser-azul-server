@@ -66,11 +66,11 @@ app.post('/setStart', async (req, res) => {
 
 app.get('/waitStart/:room', async (req, res) => {
   try {
-    const { room } = req.params;
-    if (activatedRooms.indexOf(Number(room)) !== -1) res.send(JSON.stringify('egg')); // don't change without changing client-side
+    const { room } = req.params; // change line 70 !== to ===
+    if (activatedRooms.indexOf(Number(room)) === -1) res.send(JSON.stringify('egg')); // don't change without changing client-side
     if (!mState[Number(room)]) res.send(JSON.stringify('egg')); // don't change without changing client-side
     else {
-      setTimeout(() => {activatedRooms.push(Number(room))}, 4000); /// bandaids everywhere ////////////////
+      setTimeout(() => {activatedRooms.push(Number(room))}, 1500); /// bandaids everywhere ////////////////
       res.send(JSON.stringify(mState[Number(room)]));
     }
   } catch (err) {
