@@ -70,7 +70,7 @@ app.get('/waitStart/:room', async (req, res) => {
     if (activatedRooms.indexOf(Number(room)) !== -1) res.send(JSON.stringify('egg')); // don't change without changing client-side
     if (!mState[Number(room)]) res.send(JSON.stringify('egg')); // don't change without changing client-side
     else {
-      setTimeout(() => {activatedRooms.push(Number(room))}, 3000); /// bandaids everywhere
+      // setTimeout(() => {activatedRooms.push(Number(room))}, 3000); /// bandaids everywhere ////////////////
       res.send(JSON.stringify(mState[Number(room)]));
     }
   } catch (err) {
